@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"dependency_injection_tut/server"
+	appregiter "dependency_injection_tut/appRegiter"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/fx"
@@ -12,7 +12,7 @@ func main(){
 		
 		app:= fx.New(
 			fx.Provide(gin.Default),
-			server.Module,
+			appregiter.Module,
 			// fx.Provide(routes.NewRoute),
 			fx.Invoke(registerHooks),
 		)
