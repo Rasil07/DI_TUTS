@@ -1,18 +1,18 @@
 package server
 
 import (
-	"dependency_injection_tut/routes"
-
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"go.uber.org/fx"
 )
 
+
+var Module = fx.Options(
+	fx.Provide(NewApp),
+)
 type Server struct{
-	engine *gin.Engine
-	// Routes *routes.NewRoutes
+	 *gin.Engine
 }
-
-
 
 func NewApp(s *gin.Engine) *Server{
 	s.Use(cors.New(cors.Config{
@@ -21,10 +21,7 @@ func NewApp(s *gin.Engine) *Server{
 		AllowHeaders:     []string{"*"},
 		AllowCredentials: true,
 	}))
-	
-	ser:= Server{engine: s}
-	 routes.NewRoute(ser.engine)
-	
+	ser:= Server{s}
 	return &ser
 }
 

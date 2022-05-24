@@ -2,7 +2,8 @@ package main
 
 import (
 	"context"
-	appregiter "dependency_injection_tut/appRegiter"
+	"dependency_injection_tut/appRegiter"
+	"dependency_injection_tut/routes"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/fx"
@@ -12,8 +13,7 @@ func main(){
 		
 		app:= fx.New(
 			fx.Provide(gin.Default),
-			appregiter.Module,
-			// fx.Provide(routes.NewRoute),
+			appRegiter.Module,
 			fx.Invoke(registerHooks),
 		)
 
@@ -23,10 +23,12 @@ func main(){
 func registerHooks(
 	lifecycle fx.Lifecycle,
 	ser *gin.Engine,
+	rts routes.Routes,
 ){
 	lifecycle.Append(
 		fx.Hook{
 			OnStart: func(ctx context.Context) error {
+				rts.Setup()
 				go ser.Run()
 				return nil
 			},

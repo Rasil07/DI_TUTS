@@ -1,33 +1,29 @@
 package routes
 
-import (
-	"fmt"
+import "go.uber.org/fx"
 
-	"github.com/gin-gonic/gin"
+
+
+var Module = fx.Options(
+	fx.Provide(NewGoogleRoute),
+	fx.Provide(NewRoutes),
 )
 
-type NewRoutes struct{
-	handler *gin.Engine
+type Routes []Route
+type Route interface{
+	Setup()
 }
 
-
-func NewRoute(h *gin.Engine) *NewRoutes{
-	fmt.Println(h)
-	r:= NewRoutes{handler: h}
-	r.Setup()
-	return &r
+func NewRoutes(googleRoutes *GoogleRoutes) Routes{
+	return Routes{
+		googleRoutes,
+	}
 }
 
-func (r *NewRoutes) Setup(){
-	rout:=r.handler.Group("/api")
-
-	rout.GET("/ping",r.Gethandler)
-}
-
-func (s *NewRoutes) Gethandler(c *gin.Context){
-	c.JSON(200,gin.H{
-		"message":"pong",
-	})
+func (r Routes) Setup(){
+	for _, route:=range r{
+		route.Setup()
+	}
 }
 
 

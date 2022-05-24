@@ -1,12 +1,15 @@
-package appregiter
+package appRegiter
 
 import (
+	"dependency_injection_tut/controller"
+	"dependency_injection_tut/routes"
 	"dependency_injection_tut/server"
 
 	"go.uber.org/fx"
 )
 
 var Module = fx.Options(
-	// fx.Provide(routes.NewRoute),
-	fx.Invoke(server.NewApp),
+	routes.Module,
+	controller.Module,
+	server.Module,
 )
