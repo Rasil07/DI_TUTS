@@ -1,21 +1,19 @@
 package controller
 
 import (
-	"fmt"
+	"dependency_injection_tut/service"
 
 	"github.com/gin-gonic/gin"
 )
 
-type GoogleController struct{}
+type GoogleController struct{
+	googleService service.GoogleService
+}
 
-func NewGoogleController() *GoogleController{
-
-	return &GoogleController{}
+func NewGoogleController(gs service.GoogleService) *GoogleController{
+	return &GoogleController{googleService: gs}
 }
 
 func (cnt *GoogleController) CallbackHandler(c *gin.Context){
-fmt.Println("Callback handler reached")
-c.JSON(200,gin.H{
-"message":"Google callback",
-})
+ cnt.googleService.CallbackHandler(c)
 }

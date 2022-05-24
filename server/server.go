@@ -14,7 +14,9 @@ type Server struct{
 	 *gin.Engine
 }
 
-func NewApp(s *gin.Engine) *Server{
+func NewApp() *Server{
+	s := gin.Default()
+	
 	s.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"*"},
 		AllowMethods:     []string{"PUT", "PATCH", "GET", "POST", "OPTIONS", "DELETE"},

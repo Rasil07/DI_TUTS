@@ -4,15 +4,15 @@ import (
 	"context"
 	"dependency_injection_tut/appRegiter"
 	"dependency_injection_tut/routes"
+	"dependency_injection_tut/server"
 
-	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 	"go.uber.org/fx"
 )
 
 func main(){
-		
+		godotenv.Load()
 		app:= fx.New(
-			fx.Provide(gin.Default),
 			appRegiter.Module,
 			fx.Invoke(registerHooks),
 		)
@@ -22,7 +22,7 @@ func main(){
 
 func registerHooks(
 	lifecycle fx.Lifecycle,
-	ser *gin.Engine,
+	ser *server.Server,
 	rts routes.Routes,
 ){
 	lifecycle.Append(
