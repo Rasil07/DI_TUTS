@@ -2,9 +2,9 @@ package main
 
 import (
 	"context"
+	"dependency_injection_tut/api/routes"
 	"dependency_injection_tut/appRegiter"
-	"dependency_injection_tut/routes"
-	"dependency_injection_tut/server"
+	"dependency_injection_tut/infrastructure"
 
 	"github.com/joho/godotenv"
 	"go.uber.org/fx"
@@ -22,7 +22,7 @@ func main(){
 
 func registerHooks(
 	lifecycle fx.Lifecycle,
-	ser *server.Server,
+	ser *infrastructure.Server,
 	rts routes.Routes,
 ){
 	lifecycle.Append(

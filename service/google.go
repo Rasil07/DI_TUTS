@@ -1,16 +1,16 @@
 package service
 
 import (
-	"dependency_injection_tut/database"
+	"dependency_injection_tut/infrastructure"
 
 	"github.com/gin-gonic/gin"
 )
 
 type GoogleService struct{
-	database.Database
+	infrastructure.Database
 }
 
-func NewGoogleService(db database.Database) GoogleService{
+func NewGoogleService(db infrastructure.Database) GoogleService{
 	return GoogleService{db}
 }
 

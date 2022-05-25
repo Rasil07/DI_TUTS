@@ -1,18 +1,15 @@
-package database
+package infrastructure
 
 import (
 	"fmt"
 	"log"
 	"os"
 
-	"go.uber.org/fx"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
-var Module = fx.Options(
-	fx.Provide(NewDatabase),
-)
+
 
 type Database struct{
 	*gorm.DB

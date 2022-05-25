@@ -1,17 +1,17 @@
 package routes
 
 import (
-	"dependency_injection_tut/controller"
-	"dependency_injection_tut/server"
+	"dependency_injection_tut/api/controller"
+	"dependency_injection_tut/infrastructure"
 )
 
 
 type GoogleRoutes struct{
-	server *server.Server
+	server *infrastructure.Server
 	routeController *controller.GoogleController
 }
 
-func NewGoogleRoute(ser *server.Server, cntrl *controller.GoogleController) *GoogleRoutes{
+func NewGoogleRoute(ser *infrastructure.Server, cntrl *controller.GoogleController) *GoogleRoutes{
 	return &GoogleRoutes{
 		server: ser,
 		routeController: cntrl,
