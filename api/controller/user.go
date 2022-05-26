@@ -4,6 +4,7 @@ import (
 	"dependency_injection_tut/model"
 	"dependency_injection_tut/service"
 	"dependency_injection_tut/utils"
+	"fmt"
 	"log"
 	"net/http"
 
@@ -98,7 +99,7 @@ func (uc *UserController) Login(c *gin.Context){
 		return
 	}
 
-	token,err:= utils.GenerateToken(user.ID)
+	token,err:= utils.GenerateToken(user)
 	if err!=nil{
 		c.JSON(http.StatusForbidden, gin.H{"error": "Couldnot create token"})
 		return
@@ -115,4 +116,8 @@ func (uc *UserController) Login(c *gin.Context){
 
 
 	
+}
+
+func(uc *UserController) GetAll(c *gin.Context){
+	fmt.Println("Get all ")
 }
