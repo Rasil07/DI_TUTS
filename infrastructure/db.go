@@ -22,7 +22,7 @@ type DatabaseConf struct{
 	DB_PASSWORD string
 }
 
-func NewDatabase() Database{
+func NewDatabase() *Database{
 
 		dbConf := DatabaseConf{
 			HOST: os.Getenv("DB_HOST"),
@@ -58,6 +58,6 @@ func NewDatabase() Database{
 
 	fmt.Println("Database connected successfully")
 
-	return Database{DB:db}
+	return &Database{DB:db}
 
 }
