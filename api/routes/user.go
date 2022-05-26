@@ -24,4 +24,5 @@ func (ur *UserRoutes) Setup(){
 	route := ur.server.Group("/api/users")
 
 	route.POST("/",ur.routeController.Create)
+	route.POST("login",ur.routeController.Login)
 }

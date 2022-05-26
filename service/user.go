@@ -16,3 +16,7 @@ func NewUserService(urp *repository.UserRepository) *UserService{
 func(us *UserService) Create(user *model.User) (*model.User,error){
 	return us.userRepository.CreateUser(user)
 }
+
+func(us *UserService) CheckUserExists(user *model.User) (*model.User,error){
+	return us.userRepository.CheckUserPresent(user)
+}
