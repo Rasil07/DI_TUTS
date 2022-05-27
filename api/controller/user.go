@@ -44,24 +44,25 @@ return rtrnUser
 }
 
 func(uc *UserController) Create(c *gin.Context){
-	var reqUser CreateUserCredentials
-	if err:= c.Bind(&reqUser);err!=nil{
+	// var reqUser CreateUserCredentials
+	user := &model.User{}
+	if err:= c.Bind(user);err!=nil{
 		log.Println("Binding context to user faile")
 		return 
 	}
-	hashedPassword,err:= utils.HashPassword(reqUser.Password)
+	// hashedPassword,err:= utils.HashPassword(reqUser.Password)
 
-	if err!=nil{
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	// if err!=nil{
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 
-	}
+	// }
 
-	user := &model.User{
-		Name: reqUser.Name,
-		Email: reqUser.Email,
-		Password: hashedPassword,
-	}
-	user,err = uc.userServie.Create(user)
+	// user := &model.User{
+	// 	Name: reqUser.Name,
+	// 	Email: reqUser.Email,
+	// 	Password: hashedPassword,
+	// }
+	user,err := uc.userServie.Create(user)
 	if err!=nil{
 		log.Println("Binding context to user failed")
 	}
