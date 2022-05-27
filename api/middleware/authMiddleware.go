@@ -9,6 +9,14 @@ import (
 )
 
 
+type AuthMiddleware struct{
+
+}
+
+func NewAuthMidleware() *AuthMiddleware{
+	return &AuthMiddleware{}
+}
+
 func ExtractToken(c *gin.Context) string {
 	token := c.Query("token")
 	if token != "" {
@@ -21,10 +29,15 @@ func ExtractToken(c *gin.Context) string {
 	return ""
 }
 
-func Authorized() gin.HandlerFunc{
+func(am *AuthMiddleware) Authorized() gin.HandlerFunc{
 return func(c *gin.Context){
 	token:= ExtractToken(c)
-
+	if (len([]rune(token))<1 ){
+		c.JSON(http.StatusForbidden,gin.H{
+			"error":"Unauthorized",
+		})
+		return
+	}
 	parsedToken,err:= utils.Validatetoken(token)
 	if err!=nil{
 	c.JSON(http.StatusForbidden,gin.H{

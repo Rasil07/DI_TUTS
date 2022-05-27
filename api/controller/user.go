@@ -44,24 +44,12 @@ return rtrnUser
 }
 
 func(uc *UserController) Create(c *gin.Context){
-	// var reqUser CreateUserCredentials
 	user := &model.User{}
 	if err:= c.Bind(user);err!=nil{
 		log.Println("Binding context to user faile")
 		return 
 	}
-	// hashedPassword,err:= utils.HashPassword(reqUser.Password)
-
-	// if err!=nil{
-	// 	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-
-	// }
-
-	// user := &model.User{
-	// 	Name: reqUser.Name,
-	// 	Email: reqUser.Email,
-	// 	Password: hashedPassword,
-	// }
+	
 	user,err := uc.userServie.Create(user)
 	if err!=nil{
 		log.Println("Binding context to user failed")
@@ -78,8 +66,6 @@ func(uc *UserController) Create(c *gin.Context){
 
 func (uc *UserController) Login(c *gin.Context){
 	var payload LoginUserCredentials
-
-
 	if err:=c.Bind(&payload);err!=nil{
 		log.Println("Binding context to user faile")
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -112,10 +98,6 @@ func (uc *UserController) Login(c *gin.Context){
 			"user":uc.ReturnUser(user),
 		},
 	})
-
-
-
-
 	
 }
 

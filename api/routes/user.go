@@ -9,10 +9,10 @@ import (
 type UserRoutes struct{
 	server *infrastructure.Server
 	routeController *controller.UserController
-	userMiddleware middleware.CreateUserPasswordMiddleware
+	userMiddleware *middleware.AuthMiddleware
 }
 
-func NewUserRoutes(srv *infrastructure.Server, ctrlr *controller.UserController, midl middleware.CreateUserPasswordMiddleware) *UserRoutes{
+func NewUserRoutes(srv *infrastructure.Server, ctrlr *controller.UserController, midl *middleware.AuthMiddleware) *UserRoutes{
 	return &UserRoutes{
 		server: srv,
 		routeController: ctrlr,
@@ -25,4 +25,5 @@ func (ur *UserRoutes) Setup(){
 
 	route.POST("/",ur.routeController.Create)
 	route.POST("login",ur.routeController.Login)
+	route.GET("/",ur.userMiddleware.Authorized(),ur.routeController.GetAll)
 }
